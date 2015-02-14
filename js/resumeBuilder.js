@@ -72,53 +72,50 @@ var work =
 			"employer" : "Coffee Bean and Tea Leaf",
 			"title" : "Barista",
 			"location" : "Los Angeles, CA",
-			"dates" : [2013, 2014, 2015],
+			"dates" : "2013 - 2015",
 			"description" : "Making coffee, serving pastries."
 		},
 		{
 			"employer" : "Novalogic",
 			"title" : "Quality Assurance Specialist",
 			"location" : "Calabasas, CA",
-			"dates" : [2005, 2006],
+			"dates" : "2005 - 2006",
 			"description" : "Finding bugs, submitting bugs."
 		},
 		{
 			"employer" : "Activision",
 			"title" : "Project Lead",
 			"location" : "Santa Monica, CA",
-			"dates" : [2001, 2002, 2003, 2004, 2005],
+			"dates" : "2001 - 2005",
 			"description" : "Leading a project, leading the team."
 		}
-	]
-}
-
-function displayWork()
-{
-	for ( job in work.jobs )
+	],
+	display : function()
 	{
-		$("#workExperience").append(HTMLworkStart);
-
-		var jobEmployer = HTMLworkEmployer.replace( "%data%", work.jobs[ job ].employer );
-		var jobTitle = HTMLworkTitle.replace( "%data%", work.jobs[ job ].title );
-		var formattedEmployerTitle = jobEmployer + jobTitle;
-		$(".work-entry:last").append(formattedEmployerTitle);
-
-		var jobLocation = HTMLworkLocation.replace( "%data%", work.jobs[ job ].location );
-		$(".work-entry:last").append(jobLocation);
-
-		var jobDates = "";
-		for ( var i = 0; i < work.jobs[ job ].dates.length; i++ )
+		for ( job in work.jobs )
 		{
-			$(".work-entry:last").append(work.jobs[ job ].dates[ i ] + ", ");
-		};
+			$( "#workExperience" ).append( HTMLworkStart );
 
-		var jobDescription = HTMLworkDescription.replace( "%data%", work.jobs[ job ].description );
-		$(".work-entry:last").append(jobDescription)
+			var jobEmployer = HTMLworkEmployer.replace( "%data%", work.jobs[ job ].employer );
+			var jobTitle = HTMLworkTitle.replace( "%data%", work.jobs[ job ].title );
+			var formattedEmployerTitle = jobEmployer + jobTitle;
+			$( ".work-entry:last" ).append( formattedEmployerTitle );
+
+			var jobLocation = HTMLworkLocation.replace( "%data%", work.jobs[ job ].location );
+			$( ".work-entry:last" ).append( jobLocation );
+
+			var jobDates = HTMLworkDates.replace( "%data%", work.jobs[ job ].dates );
+			$( ".work-entry:last" ).append( jobDates );
+
+			var jobDescription = HTMLworkDescription.replace( "%data%", work.jobs[ job ].description );
+			$(".work-entry:last").append(jobDescription)
+		}
 	}
 }
 
-displayWork();
+work.display();
 
+/*
 $("#main").append(internationalizeButton);
 
 function inName()
@@ -133,6 +130,7 @@ function inName()
 	// console.log(firstName + " " + upperCaseLasteName);
 	return internationalizedName;
 }
+*/
 
 var projects =
 {
@@ -140,8 +138,8 @@ var projects =
 	[
 		{
 			"title" : "T-shirts I like",
-			"dates" : [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015],
-			"description" : "All of the t-shirts I've ordered from various one-shirt-a-day sites.",
+			"dates" : "2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015",
+			"description" : "Recent awesome t-shirts from various one-shirt-a-day sites.",
 			"images" :
 			[
 				"images/A_balloonfairy.jpg",
@@ -152,58 +150,54 @@ var projects =
 		},
 		{
 			"title" : "Books I've read",
-			"dates" : [2015],
+			"dates" : "2015",
 			"description" : "All of the books I've read, so far this year.",
-			"images" : []
+			"images" :
+			[
+				"10:04, by Ben Lerner",
+				"The Hawkline Monster, by Richard Brautigan",
+				"The Man Who Couldn't Stop, by David Adam"
+			]
 		},
 		{
 			"title" : "Favorite TV shows",
-			"dates" : [1977, "Present"],
+			"dates" : "1977 - 2015",
 			"description" : "The best TV shows, ever.",
-			"images" : []
+			"images" :
+			[
+				"Star Trek: The Next Generation",
+				"Quantum Leap",
+				"JEOPARDY!",
+				"The Real Ghostbusters",
+				"ALF"
+			]
 		}
-	]
-}
-
-projects.display = function()
-{
-	for ( projectNumber in projects.projects )
+	],
+	display : function()
 	{
-		$( "#projects" ).append( HTMLprojectStart );
-
-		var projectTitle = HTMLprojectTitle.replace( "%data%", projects.projects[ projectNumber ].title );
-		var projectDates = HTMLprojectDates.replace( "%data%", projects.projects[ projectNumber ].dates );
-		var projectDescription = HTMLprojectDescription.replace( "%data%", projects.projects[ projectNumber ].description );
-		var projectImages = projects.projects[ projectNumber ].images;
-
-		$( ".project-entry:last" ).append( projectTitle );
-		$( ".project-entry:last" ).append( projectDates );
-		$( ".project-entry:last" ).append( projectDescription );
-
-		if ( projectImages.length !== 0 )
+		for ( projectNumber in projects.projects )
 		{
-			for ( var image in projectImages )
+			$( "#projects" ).append( HTMLprojectStart );
+
+			var projectTitle = HTMLprojectTitle.replace( "%data%", projects.projects[ projectNumber ].title );
+			var projectDates = HTMLprojectDates.replace( "%data%", projects.projects[ projectNumber ].dates );
+			var projectDescription = HTMLprojectDescription.replace( "%data%", projects.projects[ projectNumber ].description );
+			var projectImages = projects.projects[ projectNumber ].images;
+
+			$( ".project-entry:last" ).append( projectTitle );
+			$( ".project-entry:last" ).append( projectDates );
+			$( ".project-entry:last" ).append( projectDescription );
+
+			if ( projectImages.length !== 0 )
 			{
-				var projectImage = HTMLprojectImage.replace( "%data%", projectImages[ image ] );
-				$( ".project-entry" ).append( projectImage );
+				for ( var image in projectImages )
+				{
+					var projectImage = HTMLprojectImage.replace( "%data%", projectImages[ image ] );
+					$( ".project-entry" ).append( projectImage );
+				}
 			}
 		}
 	}
-
-	/*
-	$( ".project-entry:last" ).append( projectTitle );
-	$( ".project-entry:last" ).append( projectDates );
-	$( ".project-entry:last" ).append( projectDescription );
-
-	if ( projectImages.length !== 0 )
-	{
-		for ( var image in projectImages )
-		{
-			var projectImage = HTMLprojectImage.replace( "%data%", projectImages[ image ] );
-			$( ".project-entry" ).append( projectImage );
-		}
-	}
-	*/
 }
 
 projects.display();
@@ -215,8 +209,9 @@ var education =
 		{
 			"name" : "Purdue University",
 			"location" : "West Lafayette, IN",
-			"majors" : ["Computer Science"],
-			"dates" : [1995, 1996, 1997],
+			"degree" : "none"
+			"majors" : [ "Computer Science" ],
+			"dates" : 1997,
 			"url" : "http://www.purdue.edu"
 		},
 		{
@@ -239,10 +234,14 @@ var education =
 		{
 			"title" : "Front-end web developer nanodegree",
 			"school" : "Udacity",
-			"dates" : [2015],
+			"dates" : 2015,
 			"url" : "http://www.udacity.com"
 		}
-	]
+	],
+	display : function()
+	{
+		
+	}
 }
 
 $("#mapDiv").append(googleMap);
