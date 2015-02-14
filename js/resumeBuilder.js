@@ -11,18 +11,22 @@ var bio =
 {
 	"name" : "Aaron J",
 	"role" : "Spaceship Wizard",
-	"picture" : "images/fry.jpg",
-	"welcomeMessage" : "Do u liek to aet meatloaf?",
 	"contacts" :
 	{
-		"home" : "1701 Enterprise St. D",
-		"phone" : "123-345-6789",
-		"email" : "aaronj@starfleet.org",
-		"twitter" : "@capmaaronj",
-		"blog" : "NCC-1701-D.federation.org",
+		"mobile" : "123-456-7890",
+		"email" : "aaron.justman@gmail.com",
+		"github" : "https://github.com/sobermoode",
+		"twitter" : "@sobermoode",
 		"location" : "Hermosa Beach, CA"
 	},
-	"skills" : ["Air drumming", "Good looks", "Moxie"]
+	"biopic" : "images/fry.jpg",
+	"welcomeMessage" : "Do u liek to aet meatloaf?",
+	"skills" :
+	[
+		"Air drumming",
+		"Good looks",
+		"Encyclopedic Star Trek: TNG knowledge"
+	]
 }
 
 var bioPic = HTMLbioPic.replace( "%data%", "images/fry.jpg" );
