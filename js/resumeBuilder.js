@@ -136,7 +136,7 @@ var projects =
 	[
 		{
 			"title" : "T-shirts I like",
-			"dates" : "2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015",
+			"dates" : "2008 - 2015",
 			"description" : "Recent awesome t-shirts from various one-shirt-a-day sites.",
 			"images" :
 			[
@@ -150,24 +150,38 @@ var projects =
 			"title" : "Books I've read",
 			"dates" : "2015",
 			"description" : "All of the books I've read, so far this year.",
-			"images" :
+			"books" :
 			[
 				"10:04, by Ben Lerner",
 				"The Hawkline Monster, by Richard Brautigan",
 				"The Man Who Couldn't Stop, by David Adam"
+			],
+			"images" :
+			[
+				"images/1004.jpg",
+				"images/hawklinemonster.jpg",
+				"images/stop.jpg"
 			]
 		},
 		{
 			"title" : "Favorite TV shows",
 			"dates" : "1977 - 2015",
 			"description" : "The best TV shows, ever.",
-			"images" :
+			"shows" :
 			[
 				"Star Trek: The Next Generation",
 				"Quantum Leap",
 				"JEOPARDY!",
 				"The Real Ghostbusters",
 				"ALF"
+			],
+			"images" :
+			[
+				"images/TNGcrew.jpg",
+				"images/quantumleap.jpg",
+				"images/jeopardy.jpg",
+				"images/ghostbusters.jpg",
+				"images/ALF.jpg"
 			]
 		}
 	],
@@ -186,7 +200,29 @@ var projects =
 			$( ".project-entry:last" ).append( projectDates );
 			$( ".project-entry:last" ).append( projectDescription );
 
-			if ( projectImages.length !== 0 )
+			if( this.projects[ projectNumber ].books )
+			{
+				for( book in this.projects[ projectNumber ].books )
+				{
+					$( ".project-entry:last" ).append( this.projects[ projectNumber ].books[ book ] + '<p>' );
+					var bookImage = HTMLprojectImage.replace( "%data%", this.projects[ projectNumber ].images[ book ] );
+					$( ".project-entry:last" ).append( bookImage );
+					$( ".project-entry:last" ).append( '</p>' );
+				}
+			}
+
+			else if( this.projects[ projectNumber ].shows )
+			{
+				for( show in this.projects[ projectNumber ].shows )
+				{
+					$( ".project-entry:last" ).append( this.projects[ projectNumber ].shows[ show ] + '<p>' );
+					var showImage = HTMLprojectImage.replace( "%data%", this.projects[ projectNumber ].images[ show ] );
+					$( ".project-entry:last" ).append( showImage );
+					$( ".project-entry:last" ).append( '</p>' );
+				}
+			}
+			
+			else if ( projectImages.length !== 0 )
 			{
 				for ( var image in projectImages )
 				{
