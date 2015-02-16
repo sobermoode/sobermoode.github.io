@@ -1,3 +1,5 @@
+
+// initial resume data, from supporting courses
 var name = "Aaron Justman";
 var formattedName = HTMLheaderName.replace( "%data%", name );
 
@@ -7,6 +9,7 @@ var formattedRole = HTMLheaderRole.replace( "%data%", role );
 $( "#header" ).prepend( formattedRole );
 $( "#header" ).prepend( formattedName );
 
+// personal info JSON
 var bio =
 {
 	"name" : "Aaron J",
@@ -34,6 +37,9 @@ var bio =
 		{
 			var currentContact;
 
+			// using the generic contact from helper.js;
+			// can use a loop to append all the data, rather than using each specific
+			// HTMLcontact var on its own line.
 			currentContact = HTMLcontactGeneric.replace( "%contact%", contact );
 			currentContact = currentContact.replace( "%data%", this.contacts[ contact ] );
 
@@ -41,27 +47,25 @@ var bio =
 			$( "#footerContacts" ).append( currentContact );
 		}
 
-		var bioPic = HTMLbioPic.replace( "%data%", bio.biopic );
+		var bioPic = HTMLbioPic.replace( "%data%", this.biopic );
 		$( "#header" ).append( bioPic );
 
-		var welcomeMessage = HTMLWelcomeMsg.replace( "%data%", bio.welcomeMessage );
+		var welcomeMessage = HTMLWelcomeMsg.replace( "%data%", this.welcomeMessage );
 		$( "#header" ).append( welcomeMessage );
 
+		// HTMLskillsStart adds a specific <div>,
+		// "#skills" to add the individual skills to
 		$( "#header" ).append( HTMLskillsStart );
-
-		var originalHTMLSkills = HTMLskills;
 
 		for ( skill in this.skills )
 		{
 			var formattedSkill = HTMLskills.replace( "%data%", this.skills[ skill ] );
 			$( "#skills" ).append( formattedSkill );
-			HTMLskills = originalHTMLSkills;
 		}
-	}
+	} 
 }
 
-bio.display();
-
+// work experience JSON
 var work =
 {
 	"jobs" :
@@ -90,46 +94,28 @@ var work =
 	],
 	display : function()
 	{
-		for ( job in work.jobs )
+		for ( job in this.jobs )
 		{
 			$( "#workExperience" ).append( HTMLworkStart );
 
-			var jobEmployer = HTMLworkEmployer.replace( "%data%", work.jobs[ job ].employer );
-			var jobTitle = HTMLworkTitle.replace( "%data%", work.jobs[ job ].title );
+			var jobEmployer = HTMLworkEmployer.replace( "%data%", this.jobs[ job ].employer );
+			var jobTitle = HTMLworkTitle.replace( "%data%", this.jobs[ job ].title );
 			var formattedEmployerTitle = jobEmployer + jobTitle;
 			$( ".work-entry:last" ).append( formattedEmployerTitle );
 
-			var jobLocation = HTMLworkLocation.replace( "%data%", work.jobs[ job ].location );
+			var jobLocation = HTMLworkLocation.replace( "%data%", this.jobs[ job ].location );
 			$( ".work-entry:last" ).append( jobLocation );
 
-			var jobDates = HTMLworkDates.replace( "%data%", work.jobs[ job ].dates );
+			var jobDates = HTMLworkDates.replace( "%data%", this.jobs[ job ].dates );
 			$( ".work-entry:last" ).append( jobDates );
 
-			var jobDescription = HTMLworkDescription.replace( "%data%", work.jobs[ job ].description );
-			$(".work-entry:last").append(jobDescription)
+			var jobDescription = HTMLworkDescription.replace( "%data%", this.jobs[ job ].description );
+			$( ".work-entry:last" ).append( jobDescription );
 		}
 	}
 }
 
-work.display();
-
-/*
-$("#main").append(internationalizeButton);
-
-function inName()
-{
-	// console.log("calling inName()");
-	var splitName = name.split(" ");
-
-	var firstName = splitName[0];
-	var upperCaseLasteName = splitName[1].toUpperCase();
-	var internationalizedName = firstName + " " + upperCaseLasteName;
-
-	// console.log(firstName + " " + upperCaseLasteName);
-	return internationalizedName;
-}
-*/
-
+// projects JSON
 var projects =
 {
 	"projects" :
@@ -138,6 +124,13 @@ var projects =
 			"title" : "T-shirts I like",
 			"dates" : "2008 - 2015",
 			"description" : "Recent awesome t-shirts from various one-shirt-a-day sites.",
+			"imageTitles" :
+			[
+				"Ballon Fairy",
+				"Chaos Emerald",
+				"Hobbit's Tales",
+				"The Lion War"
+			],
 			"images" :
 			[
 				"images/A_balloonfairy.jpg",
@@ -150,7 +143,7 @@ var projects =
 			"title" : "Books I've read",
 			"dates" : "2015",
 			"description" : "All of the books I've read, so far this year.",
-			"books" :
+			"imageTitles" :
 			[
 				"10:04, by Ben Lerner",
 				"The Hawkline Monster, by Richard Brautigan",
@@ -167,7 +160,7 @@ var projects =
 			"title" : "Favorite TV shows",
 			"dates" : "1977 - 2015",
 			"description" : "The best TV shows, ever.",
-			"shows" :
+			"imageTitles" :
 			[
 				"Star Trek: The Next Generation",
 				"Quantum Leap",
@@ -187,54 +180,31 @@ var projects =
 	],
 	display : function()
 	{
-		for ( projectNumber in projects.projects )
+		for( projectNumber in this.projects )
 		{
 			$( "#projects" ).append( HTMLprojectStart );
 
-			var projectTitle = HTMLprojectTitle.replace( "%data%", projects.projects[ projectNumber ].title );
-			var projectDates = HTMLprojectDates.replace( "%data%", projects.projects[ projectNumber ].dates );
-			var projectDescription = HTMLprojectDescription.replace( "%data%", projects.projects[ projectNumber ].description );
-			var projectImages = projects.projects[ projectNumber ].images;
+			var projectTitle = HTMLprojectTitle.replace( "%data%", this.projects[ projectNumber ].title );
+			var projectDates = HTMLprojectDates.replace( "%data%", this.projects[ projectNumber ].dates );
+			var projectDescription = HTMLprojectDescription.replace( "%data%", this.projects[ projectNumber ].description );
 
 			$( ".project-entry:last" ).append( projectTitle );
 			$( ".project-entry:last" ).append( projectDates );
 			$( ".project-entry:last" ).append( projectDescription );
 
-			if( this.projects[ projectNumber ].books )
-			{
-				for( book in this.projects[ projectNumber ].books )
-				{
-					$( ".project-entry:last" ).append( this.projects[ projectNumber ].books[ book ] + '<p>' );
-					var bookImage = HTMLprojectImage.replace( "%data%", this.projects[ projectNumber ].images[ book ] );
-					$( ".project-entry:last" ).append( bookImage );
-					$( ".project-entry:last" ).append( '</p>' );
-				}
-			}
+			var projectImageTitles = this.projects[ projectNumber ].imageTitles;
+			var projectImages = this.projects[ projectNumber ].images;
 
-			else if( this.projects[ projectNumber ].shows )
+			for( var image = 0; image < projectImages.length; image++ )
 			{
-				for( show in this.projects[ projectNumber ].shows )
-				{
-					$( ".project-entry:last" ).append( this.projects[ projectNumber ].shows[ show ] + '<p>' );
-					var showImage = HTMLprojectImage.replace( "%data%", this.projects[ projectNumber ].images[ show ] );
-					$( ".project-entry:last" ).append( showImage );
-					$( ".project-entry:last" ).append( '</p>' );
-				}
-			}
-			
-			else if ( projectImages.length !== 0 )
-			{
-				for ( var image in projectImages )
-				{
-					var projectImage = HTMLprojectImage.replace( "%data%", projectImages[ image ] );
-					$( ".project-entry" ).append( projectImage );
-				}
+				var currentImage = HTMLprojectImage.replace( "%data%", projectImages[ image ] );
+
+				$( ".project-entry:last" ).append( "<p>" + projectImageTitles[ image ] );
+				$( ".project-entry:last" ).append( currentImage + "</p>" );
 			}
 		}
 	}
 }
-
-projects.display();
 
 var education = 
 {
@@ -276,22 +246,22 @@ var education =
 	],
 	display : function()
 	{
-		for ( school in education.schools )
+		for ( school in this.schools )
 		{
 			$( "#education" ).append( HTMLschoolStart );
 
-			var schoolName = HTMLschoolName.replace( "%data%", education.schools[ school ].name );
-			var schoolDegree = HTMLschoolDegree.replace( "%data%", education.schools[ school ].degree );
+			var schoolName = HTMLschoolName.replace( "%data%", this.schools[ school ].name );
+			var schoolDegree = HTMLschoolDegree.replace( "%data%", this.schools[ school ].degree );
 			var formattedSchoolDegree = schoolName + schoolDegree;
 			$( ".education-entry:last" ).append( formattedSchoolDegree );
 
-			var schoolLocation = HTMLschoolLocation.replace( "%data%", education.schools[ school ].location );
+			var schoolLocation = HTMLschoolLocation.replace( "%data%", this.schools[ school ].location );
 			$( ".education-entry:last" ).append( schoolLocation );
 
-			var schoolDates = HTMLschoolDates.replace( "%data%", education.schools[ school ].dates );
+			var schoolDates = HTMLschoolDates.replace( "%data%", this.schools[ school ].dates );
 			$( ".education-entry:last" ).append( schoolDates );
 
-			var schoolMajor = HTMLschoolMajor.replace( "%data%", education.schools[ school ].majors );
+			var schoolMajor = HTMLschoolMajor.replace( "%data%", this.schools[ school ].majors );
 			$(".education-entry:last").append( schoolMajor );
 		}
 
@@ -302,19 +272,22 @@ var education =
 
 		var onlineCoursesDiv = $( '.online-education-entry' );
 
-		for ( onlineCourse in education.onlineCourses )
+		for ( onlineCourse in this.onlineCourses )
 		{
-			var onlineTitle = HTMLonlineTitle.replace( "%data%", education.onlineCourses[ onlineCourse ].title );
-			var onlineSchool = HTMLonlineSchool.replace( "%data%", education.onlineCourses[ onlineCourse ].school );
+			var onlineTitle = HTMLonlineTitle.replace( "%data%", this.onlineCourses[ onlineCourse ].title );
+			var onlineSchool = HTMLonlineSchool.replace( "%data%", this.onlineCourses[ onlineCourse ].school );
 			var formattedOnlineTitleSchool = onlineTitle + onlineSchool;
-			var onlineDates = HTMLonlineDates.replace( "%data%", education.onlineCourses[ onlineCourse ].dates );
-			var onlineURL = HTMLonlineURL.replace( "%data%", education.onlineCourses[ onlineCourse ].url );
+			var onlineDates = HTMLonlineDates.replace( "%data%", this.onlineCourses[ onlineCourse ].dates );
+			var onlineURL = HTMLonlineURL.replace( "%data%", this.onlineCourses[ onlineCourse ].url );
 
 			$(".online-education-entry:last").append( formattedOnlineTitleSchool, onlineDates, onlineURL );
 		}
 	}
 }
 
+bio.display();
+work.display();
+projects.display();
 education.display();
 
 $( "#mapDiv" ).append( googleMap );
