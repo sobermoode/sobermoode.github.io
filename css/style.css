@@ -8,6 +8,8 @@
   overflow: auto;
 }
 
+/* custom online-education-entry class to make those courses appear
+  simlar to the offline courses */
 .education-entry, .work-entry, .project-entry, .online-education-entry {
   padding-left: 5%;
   padding-right: 5%;

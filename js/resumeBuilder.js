@@ -54,7 +54,7 @@ var bio =
 		$( "#header" ).append( welcomeMessage );
 
 		// HTMLskillsStart adds a specific <div>,
-		// "#skills" to add the individual skills to
+		// "#skills" to put the individual skills into
 		$( "#header" ).append( HTMLskillsStart );
 
 		for ( skill in this.skills )
@@ -94,6 +94,7 @@ var work =
 	],
 	display : function()
 	{
+		// interate through the JSON info and replace the given helper elements with my data
 		for ( job in this.jobs )
 		{
 			$( "#workExperience" ).append( HTMLworkStart );
@@ -116,6 +117,8 @@ var work =
 }
 
 // projects JSON
+// i've added the image titles to each image in every project
+// (this wasn't explicitly part of the instructions)
 var projects =
 {
 	"projects" :
@@ -192,14 +195,17 @@ var projects =
 			$( ".project-entry:last" ).append( projectDates );
 			$( ".project-entry:last" ).append( projectDescription );
 
+			// get the arrays of image titles and the images themselves
 			var projectImageTitles = this.projects[ projectNumber ].imageTitles;
 			var projectImages = this.projects[ projectNumber ].images;
 
+			// use the image helper element and replace its data with the URL to my image
+			// then append theimage title and the associated image to the resume
 			for( var image = 0; image < projectImages.length; image++ )
 			{
 				var currentImage = HTMLprojectImage.replace( "%data%", projectImages[ image ] );
 
-				$( ".project-entry:last" ).append( "<p>" + projectImageTitles[ image ] );
+				$( ".project-entry:last" ).append( "<p><h3 class='orange-text'>" + projectImageTitles[ image ] + "</h3>" );
 				$( ".project-entry:last" ).append( currentImage + "</p>" );
 			}
 		}
@@ -267,10 +273,10 @@ var education =
 
 		$( "#education" ).append( HTMLonlineClasses );
 
+		// append a new <div> with my custom online-education-entry class,
+		// so that these courses appear similar to the offline courses
 		var onlineCoursesDivText = '<div class="online-education-entry"></div>';
 		$( "#education" ).append( onlineCoursesDivText );
-
-		var onlineCoursesDiv = $( '.online-education-entry' );
 
 		for ( onlineCourse in this.onlineCourses )
 		{
@@ -280,15 +286,18 @@ var education =
 			var onlineDates = HTMLonlineDates.replace( "%data%", this.onlineCourses[ onlineCourse ].dates );
 			var onlineURL = HTMLonlineURL.replace( "%data%", this.onlineCourses[ onlineCourse ].url );
 
-			$(".online-education-entry:last").append( formattedOnlineTitleSchool, onlineDates, onlineURL );
+			$( ".online-education-entry:last" ).append( formattedOnlineTitleSchool, onlineDates, onlineURL );
 		}
 	}
 }
 
+// display all of the JSON info to fill out the resume
 bio.display();
 work.display();
 projects.display();
 education.display();
 
+// append the Google Map to the page;
+// pins will appear in the places i've gone to school and worked, taken from the JSON info
 $( "#mapDiv" ).append( googleMap );
 
